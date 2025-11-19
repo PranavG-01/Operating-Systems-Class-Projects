@@ -1,1 +1,5 @@
+The goal of this project was to write a program that goes through the a given absolute path of a directory and produces an organized list of all the files and folders inside. 
 
+The program starts with a revursive loop to traverse through the entire directory and builds a tree data structure representing each files and subdirectories. Using a tree data structure allowed for the most efficient way to store values of the folders and their contents (child nodes) as nodes. Within the tree, each subdirectory is stored as a node and its children (files and other subdirectories) were maintained in a link list. Once the tree is fully constructed, the program prints it level-by-level, using a queue to perform breadth-first traversal. Each item is printed line-by-line, displaying the level, order, and absolute path for every node in the tree.
+
+Dynamic memory allocation is used throughout the program. This ensures that there are no memory leaks after the program terminates. All allocated memory is freed at the end, the program was also tested with valgrind to ensure that all heap blocks are freed and no memory leaks are possible
