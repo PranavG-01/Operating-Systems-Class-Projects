@@ -1,1 +1,5 @@
+This project implements a keyword-search service using a multi-process, multi-threaded client–server architecture built on system message queues. The system consists of two executables: ks_server and ks_client. The server initializes a master message queue and runs as a background process, waiting on incoming request messages. Each request contains a keyword and an absolute directory path supplied by a client.
 
+Upon receiving a request, the server forks a dedicated child process to service it. The child process enumerates all first-level files in the specified directory and creates a thread for each file. Each worker thread performs a line-by-line scan of its assigned file, detecting exact keyword matches and transmitting results back to the requesting client via the client’s reply queue. A reply consists of the keyword and the matched line.
+
+Once all worker threads finish, the child process sends a "end-of-search" message indicating completion of the search. Multiple clients can be active simultaneously; the server handles concurrency by forking one child process per request, while thread-level parallelism within each child maximizes per-request performance.
